@@ -1,9 +1,12 @@
 // server.js
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000; // ใช้ค่า PORT จาก .env ถ้ามีก็ใช้ ถ้าไม่มีก็ fallback เป็น 5000
 
 // เปิด CORS สำหรับทุก origin
 app.use(cors());
