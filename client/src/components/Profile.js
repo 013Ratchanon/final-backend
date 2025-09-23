@@ -4,13 +4,17 @@ export default function Profile() {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/profile")
+    // ใช้ environment variable สำหรับ backend URL
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+    fetch(`${API_URL}/api/profile`)
       .then((res) => res.json())
       .then((data) => setProfile(data))
       .catch((err) => console.error("Fetch error:", err));
   }, []);
 
-  if (!profile) return <div style={{ textAlign: "center", marginTop: 50 }}>Loading...</div>;
+  if (!profile)
+    return <div style={{ textAlign: "center", marginTop: 50 }}>Loading...</div>;
 
   return (
     <div
@@ -51,13 +55,22 @@ export default function Profile() {
       </div>
 
       <div style={{ marginTop: 30 }}>
-        <h3 style={{ borderBottom: "2px solid #4fc3f7", display: "inline-block", paddingBottom: 5 }}>
+        <h3
+          style={{
+            borderBottom: "2px solid #4fc3f7",
+            display: "inline-block",
+            paddingBottom: 5,
+          }}
+        >
           ติดต่อ
         </h3>
         <ul style={{ listStyle: "none", padding: 0, marginTop: 10 }}>
           <li>
             📧 Email:{" "}
-            <a href={`mailto:${profile.contact.email}`} style={{ color: "#4fc3f7" }}>
+            <a
+              href={`mailto:${profile.contact.email}`}
+              style={{ color: "#4fc3f7" }}
+            >
               {profile.contact.email}
             </a>
           </li>
@@ -75,6 +88,5 @@ export default function Profile() {
         </ul>
       </div>
     </div>
-   
   );
 }
