@@ -6,7 +6,8 @@ function Home() {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/hello")
+    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    fetch(`${apiUrl}/api/hello`)
       .then((res) => res.json())
       .then((data) => setProfile(data))
       .catch((err) => console.error("Fetch error:", err));
